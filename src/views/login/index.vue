@@ -16,16 +16,16 @@
                     class-name="w-full xl:w-[400px] h-[50px]" type="password" icon="pi-key" :secure="true">
                     <span v-if="v$.password.$error" v-for="error in v$.password.$errors">{{ error.$message }}</span>
                 </InputComponent>
-                <div class="w-full xl:w-[400px] flex justify-end my-3 mb-8">
+                <!-- <div class="w-full xl:w-[400px] flex justify-end my-3 mb-8">
                     <span class="tracking-[1px] text-black font-semibold underline cursor-pointer">Reset Password</span>
-                </div>
-                <ButtonComponent @on-click="onClick" class-name="w-full xl:w-[400px] h-[50px] bg-[#E45CA2]" />
-                <div class="w-full xl:w-[400px] flex justify-end my-3">
+                </div> -->
+                <ButtonComponent @on-click="onClick" class-name="w-full xl:w-[400px] h-[50px] bg-[#E45CA2] mt-8" />
+                <!-- <div class="w-full xl:w-[400px] flex justify-end my-3">
                     <span class="tracking-[1px] text-black font-normal">dons't have an
                         account ? <span
                             class="tracking-[1px] text-black font-semibold underline cursor-pointer">Register</span>
                     </span>
-                </div>
+                </div> -->
             </div>
             <div class="flex-1 flex justify-center items-center bg-[#E45CA2] flex-col rounded-lg p-4">
                 <div class="flex justify-start w-full xl:w-[500px] mb-8">

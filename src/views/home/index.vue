@@ -28,10 +28,12 @@
     </section>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <section class="bg-white p-2">
-        <Bar :options="chartOptions" :data="barData" />
+        <SkeletonComponent v-if="loadingChart" />
+        <Bar :options="chartOptions" :data="barData" v-else />
       </section>
       <section class="bg-white p-2">
-        <Line :options="chartOptions" :data="lineData" />
+        <SkeletonComponent v-if="loadingChart" />
+        <Line :options="chartOptions" ref="lineRef" :data="lineData" v-else />
       </section>
     </div>
   </div>
@@ -69,6 +71,7 @@ interface IDashboard {
 }
 
 const loading = ref<boolean>(false)
+const loadingChart = ref<boolean>(false)
 
 const cardData = ref<CardInterface[]>([
   {
@@ -106,8 +109,8 @@ const barData = ref({
   ],
   datasets: [
     {
-      label: 'Jumlah pengguna berdasarkan bulan',
-      backgroundColor: '#f87979',
+      label: 'Jumlah pengguna menggunakan chatt',
+      backgroundColor: '#E45CA2',
       data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
     }
   ]
@@ -117,14 +120,15 @@ const lineData = ref({
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      label: 'Data One',
-      backgroundColor: '#f87979',
+      label: 'Jumlah pengguna menggunakan chatt',
+      backgroundColor: '#E45CA2',
       data: [40, 39, 10, 40, 39, 80, 40]
     }
   ]
 })
 
 const chartOptions = ref({ responsive: true })
+const lineRef = ref(null)
 
 const getData = async () => {
   loading.value = true
@@ -150,10 +154,52 @@ const getData = async () => {
   }
 }
 
+const getUserActivity = async () => {
+  loadingChart.value = true
+  try {
+    const response = await doRequest({
+      url: "/dashboard/user/activity",
+      method: 'get',
+    })
+    const data: any[] = response.data
+
+    // Update the whole lineData object to ensure reactivity
+    lineData.value = {
+      labels: data.map(item => item.label),
+      datasets: [
+        {
+          label: 'Jumlah pengguna menggunakan chatt',
+          backgroundColor: '#E45CA2',
+          data: data.map(item => item.value)
+        }
+      ]
+    };
+
+    barData.value = {
+      labels: data.map(item => item.label),
+      datasets: [
+        {
+          label: 'Jumlah pengguna menggunakan chatt',
+          backgroundColor: '#E45CA2',
+          data: data.map(item => item.value)
+        }
+      ]
+    }
+    loadingChart.value = false
+
+
+  } catch (error) {
+    loadingChart.value = false
+    toast.error(ErrorResponse.message(error))
+  }
+}
+
 
 onMounted(() => {
   getData()
+  getUserActivity()
 })
+
 </script>
 <style lang="">
 
