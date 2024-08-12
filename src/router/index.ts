@@ -14,6 +14,14 @@ const router = createRouter({
       component: () => import('../views/login/index.vue')
     },
     {
+      path: '/term-condition',
+      name: 'term-condition',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/term-condition/index.vue')
+    },
+    {
       path: '/',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -108,6 +116,42 @@ const router = createRouter({
           meta: {
             requiresAuth: true,
             access: ['superadmin']
+          }
+        }
+      ]
+    },
+    {
+      path: '/',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../layouts/ChattLayout.vue'),
+      children: [
+        {
+          name: "profile",
+          path: "profile",
+          component: () => import("../views/profile/index.vue"),
+          meta: {
+            requiresAuth: true,
+            access: ['superadmin', 'puskesmas']
+          }
+        }
+      ]
+    },
+    {
+      path: '/',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../layouts/ChattLayout.vue'),
+      children: [
+        {
+          name: "reset-password",
+          path: "reset-password",
+          component: () => import("../views/reset-password/index.vue"),
+          meta: {
+            requiresAuth: true,
+            access: ['superadmin', 'puskesmas']
           }
         }
       ]

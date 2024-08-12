@@ -1,13 +1,13 @@
 <template>
     <div class="flex flex-wrap mb-5">
-        <div class="w-full max-w-full mb-6  mx-auto">
+        <div class="w-full max-w-full mb-6 mx-auto">
             <div
                 class="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white">
                 <div v-show="!props.loading"
                     class="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30 p-4">
                     <div class="w-[200px]">
-                        <InputComponent v-model="model" icon="pi-search" class="border-[#f751a6] mx-9 my-4"
-                            placeholder="Cari..." />
+                        <InputComponent @on-change="onSearch" v-model="model" icon="pi-search"
+                            class="border-[#f751a6] mx-9 my-4" placeholder="Cari..." />
                     </div>
                     <!-- card body  -->
                     <div class="flex-auto block py-8 pt-6 px-9">
@@ -92,7 +92,7 @@ import type { ITable } from '@/interface/table';
 import InputComponent from './InputComponent.vue';
 import SpinnerComponent from '@/components/SpinnerComponent.vue'
 
-const emmit = defineEmits(['onNext', 'onPrev', 'onLimit', 'onSearch'])
+const emmit = defineEmits(['onNext', 'onPrev', 'onLimit', 'onSearch', 'onChange'])
 
 const props = withDefaults(defineProps<ITable<any>>(), {
     withNumber: true,
@@ -113,8 +113,8 @@ const onLimit = (event: any) => {
     emmit('onLimit', parseInt(event.target.value) as number)
 }
 
-const onSearch = () => {
-    emmit('onSearch')
+const onSearch = (event: any) => {
+    emmit('onSearch', event)
 }
 </script>
 <style lang="">

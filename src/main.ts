@@ -10,7 +10,6 @@ import 'primeicons/primeicons.css'
 import "@steveyuowo/vue-hot-toast/vue-hot-toast.css";
 
 const app = createApp(App)
-
 app.use(createPinia())
 app.use(router)
 app.component('vue-skeleton-loader', VueSkeletonLoader);

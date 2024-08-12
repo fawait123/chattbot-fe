@@ -3,8 +3,8 @@
     <HeaderComponent :with-primary-button="true" title="Tambah User" route-name="users-create"
       :with-back-button="false" />
     <TableComponent :columns="tableColumn" :rows="tableRow" :total="pagination.total" :perPage="pagination.page"
-      :loading="pagination.loading" v-model="pagination.search" @onPrev="onPrev" @onNext="onNext"
-      :limit="pagination.limit" @onLimit="onLimit">
+      :loading="pagination.loading" @on-search="onSearch" @onPrev="onPrev" @onNext="onNext" :limit="pagination.limit"
+      @onLimit="onLimit">
       <template #name="{ row }">{{ row.name }}</template>
       <template #username="{ row }">{{ row.username }}</template>
       <template #email="{ row }">{{ row.email }}</template>
@@ -89,6 +89,12 @@ const onConfimDelete = (id: string) => {
 const onOk = () => {
   deleteData(idDelete.value as string)
   showModalConfirm.value = !showModalConfirm.value
+}
+
+const onSearch = (event: any) => {
+  event.preventDefault();
+  pagination.value.search = event.target.value
+  getData()
 }
 
 const onChange = (id: string) => [

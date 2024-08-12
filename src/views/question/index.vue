@@ -3,8 +3,8 @@
     <HeaderComponent :with-primary-button="true" title="Tambah Pertanyaan" route-name="question-create"
       :with-back-button="false" />
     <TableComponent :columns="tableColumn" :rows="tableRow" :total="pagination.total" :perPage="pagination.page"
-      :loading="pagination.loading" v-model="pagination.search" @onPrev="onPrev" @onNext="onNext"
-      :limit="pagination.limit" @onLimit="onLimit">
+      :loading="pagination.loading" @onPrev="onPrev" @onNext="onNext" @on-search="onSearch" :limit="pagination.limit"
+      @onLimit="onLimit">
       <template #description="{ row }">{{ row.description }}</template>
       <template #isPublic="{ row }">
         <SwitchComponent :id="row._id" :checked="row.isPublic" @onClick="changeStatus(row._id, row.isPublic)" />
@@ -72,6 +72,14 @@ const onConfimDelete = (id: string) => {
   idDelete.value = id
   showModalConfirm.value = !showModalConfirm.value
 }
+
+const onSearch = (event: any) => {
+  event.preventDefault();
+  pagination.value.search = event.target.value
+  getData()
+}
+
+
 const onOk = () => {
   deleteData(idDelete.value as string)
   showModalConfirm.value = !showModalConfirm.value

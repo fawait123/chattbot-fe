@@ -19,7 +19,7 @@
                             <span class="pi pi-arrow-up-left"></span>
                         </button>
 
-                        <ButtonPrimaryComponent @onClick="onClick" :title="props.title"
+                        <ButtonPrimaryComponent @onClick="onClick" className="px-5 py-3" :title="props.title"
                             v-show="props.withPrimaryButton" />
                     </div>
                 </div>

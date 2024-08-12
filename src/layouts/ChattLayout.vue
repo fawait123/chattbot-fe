@@ -21,7 +21,7 @@
                         <ul class="space-y-4 border-t border-gray-100 pt-4">
                             <li v-for="menu in sidbarMenu.filter((el) => el.access?.includes(role))">
                                 <span @click="gotoRoute(menu.routeName as string)"
-                                    :class="[menu.routeName == path ? 'bg-[#E45CA2] text-white' : 'text-gray-500', ' cursor-pointer group relative flex justify-center rounded px-2 py-1.5 hover:bg-[#f58bc3e3] hover:text-white transition-all duration-100']">
+                                    :class="[menu.routeName?.includes(path as string) ? 'bg-[#E45CA2] text-white' : 'text-gray-500', ' cursor-pointer group relative flex justify-center rounded px-2 py-1.5 hover:bg-[#f58bc3e3] hover:text-white transition-all duration-100']">
                                     <span :class="menu.iconName"></span>
 
                                     <span
@@ -72,9 +72,7 @@
             </div>
             <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
                 <a href="#" class="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
-                    <img alt=""
-                        src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                        class="size-10 rounded-full object-cover" />
+                    <img alt="" src="/public/assets/images/logo.jpeg" class="size-10 rounded-full object-cover" />
 
                     <div>
                         <p class="text-xs">
@@ -101,8 +99,7 @@
                                     class="absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
                                     role="menu">
                                     <a href="#" class="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
-                                        <img alt=""
-                                            src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                                        <img alt="" src="/public/assets/images/logo.jpeg"
                                             class="size-10 rounded-full object-cover" />
 
                                         <div>
@@ -118,6 +115,7 @@
                                         </strong>
 
                                         <a href="#" v-for="menu in profileMenu"
+                                            @click="gotoRoute(menu.routeName as string)"
                                             class="rounded-lg px-4 py-2 text-sm text-gray-500 flex items-center justify-start gap-3 hover:bg-[#f8ecf3]  hover:text-[#f751a6]"
                                             role="menuitem">
                                             <span :class="menu.iconName"></span>
@@ -170,17 +168,15 @@ interface IUserInfo {
     sub: string
     username: string
 }
-const path = ref(route.fullPath);
+const path = ref(route.name);
 const userInfo = ref<IUserInfo>(JSON.parse(Cookie.get('user') as string))
 
 const user = JSON.parse(Cookie.get("user") as string) as IUser
 const role = ref<string>(user.role)
 
-console.log(role)
-
 
 watch(() => {
-    path.value = route.fullPath
+    path.value = route.name
 }, () => path)
 
 
@@ -195,31 +191,31 @@ const sidbarMenu = ref<sidebarMenuInterface[]>([
     {
         title: "Dashboard",
         iconName: "pi pi-home",
-        routeName: "/",
+        routeName: "home",
         access: ["superadmin", "puskesmas"]
     },
     {
         title: "Pengguna",
         iconName: "pi pi-users",
-        routeName: "/users",
+        routeName: "users",
         access: ["superadmin"]
     },
     {
         title: "Pertanyaan",
         iconName: "pi pi-list-check",
-        routeName: "/question",
+        routeName: "question",
         access: ["superadmin"]
     },
     {
         title: "Video",
         iconName: "pi pi-video",
-        routeName: "/video",
+        routeName: "video",
         access: ["superadmin"]
     },
     {
         title: "Foto",
         iconName: "pi pi-camera",
-        routeName: "/camera",
+        routeName: "camera",
         access: ["superadmin", "puskesmas"]
     }
 ])
@@ -233,7 +229,7 @@ const profileMenu = ref<sidebarMenuInterface[]>([
     {
         title: "Reset Password",
         iconName: "pi pi-key",
-        routeName: "password"
+        routeName: "reset-password"
     }
 ])
 
@@ -246,7 +242,8 @@ const changeShowProfileDropdown = () => {
 }
 
 const gotoRoute = (routeName: string) => {
-    router.push(routeName)
+    console.log(routeName)
+    router.push({ name: routeName })
 }
 
 const onLogout = () => {

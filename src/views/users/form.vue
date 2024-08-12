@@ -37,7 +37,7 @@
                             </OptionInputComponent>
                             <OptionInputComponent label="Puskesmas" name="puskesmas" v-model="state.role">
                             </OptionInputComponent>
-                            <OptionInputComponent label="Admin" name="admin" v-model="state.role">
+                            <OptionInputComponent label="Superadmin" name="superadmin" v-model="state.role">
                             </OptionInputComponent>
                         </div>
                         <div class="mt-4">
