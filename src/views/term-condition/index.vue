@@ -86,7 +86,7 @@
                         ketika Anda menginstal aplikasi dari Play Store atau selama pemeriksaan layanan untuk pembaruan
                         otomatis. Apabila Anda menggunakan perangkat Android yang dilengkapi dengan aplikasi
                         Teledent Pregnancy,
-                        perangkat Anda akan menghubungi server Geekgarden Software House secara berkala untuk memberikan
+                        perangkat Anda akan menghubungi server Teledent Pregnancy secara berkala untuk memberikan
                         informasi mengenai perangkat Anda dan koneksi ke Layanan Kami. Informasi ini mencakup hal-hal
                         seperti
                         jenis perangkat Anda, nama operator, laporan kerusakan, dan aplikasi yang telah Anda instal pada
