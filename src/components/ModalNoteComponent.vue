@@ -1,7 +1,7 @@
 <template>
     <div class="fixed top-0 left-0 right-0 bottom-0 bg-[#0000002a] z-30 flex justify-center items-center overscroll-none"
-        v-show="isShowLocal">
-        <div class="rounded-xl border border-gray-100 bg-white p-4 w-[60%] md:w-1/4">
+        v-show="props.isShow">
+        <div class="rounded-xl border border-gray-100 bg-white p-4 w-[60%] md:[60%]">
             <div class="flex items-start gap-4">
                 <span class="text-green-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<ModalConfirmProps>(), {
     isShow: true
 })
 
-const emmit = defineEmits(['onOk'])
+const emmit = defineEmits(['onOk', 'onClose'])
 
 const { isShow } = toRefs(props)
 const isShowLocal = ref(isShow.value);
@@ -72,7 +72,7 @@ const onOk = () => {
 }
 
 const onClose = () => {
-    isShowLocal.value = !isShowLocal.value;
+    emmit('onClose')
 };
 </script>
 <style lang="">
