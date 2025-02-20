@@ -3,8 +3,8 @@ import Cookie from 'cookiejs'
 
 
 
-// export const baseURL = "http://127.0.0.1:3000"
-export const baseURL = "https://api.teledentpregnancy.com"
+export const baseURL = "http://127.0.0.1:3000"
+// export const baseURL = "https://api.teledentpregnancy.com"
 const doRequest = axios.create({
     baseURL: baseURL,
     headers: {
