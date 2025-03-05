@@ -25,12 +25,13 @@
       body="Apakah kamu yakin ingin menghapus data ?" />
     <ModalNoteComponent :is-show="isPreview" @on-ok="onOke" @on-close="onClose" title="Detail Gambar">
       <div class="overflow-hidden flex gap-4 justify-center items-center w-full flex-col">
-        <div class="w-[40%] h-[40%] flex justify-center">
+        <div class="w-[40%] h-[40%] overflow-hidden flex flex-col items-center">
           <img :src="dataPreview?.source ? baseURL + dataPreview?.source?.replace('./', '/') : ''" alt="Picture"
             class="rounded-lg object-contain max-w-[40%] max-h-[20%] cursor-pointer"
             onerror="this.onerror=null;this.src='/public/assets/images/logo.jpeg';"
             @click="onPreviewImage(baseURL + dataPreview?.source?.replace('./', '/'))" />
         </div>
+        <p>{{ dataPreview?.description ?? 'Tidak ada keterangan' }}</p>
         <TextAreaComponent placeholder="Masukan catatan anda" v-model="note" />
       </div>
     </ModalNoteComponent>
@@ -74,7 +75,8 @@ const tableColumn = ref<IColumn[]>([
     value: "Gambar"
   }
 ])
-const note = ref<string | null>(null)
+const dataPreview = ref<any>(null)
+const note = ref<string | null>(dataPreview.value?.note ?? null)
 const isPreview = ref<boolean>(false)
 const pagination = ref<IPagination>({
   page: 1,
@@ -85,7 +87,6 @@ const pagination = ref<IPagination>({
 })
 const showModalConfirm = ref<boolean>(false)
 const idDelete = ref<string | null>(null)
-const dataPreview = ref<any>(null)
 
 const onChange = (id: string) => [
   router.push({ name: 'question-create', query: { id, edit: 'true' } })
@@ -101,6 +102,7 @@ const onConfimDelete = (id: string) => {
 }
 
 const previewImage = (row: any) => {
+  console.log(row)
   dataPreview.value = row
   isPreview.value = true
 }
