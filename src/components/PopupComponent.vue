@@ -8,6 +8,7 @@
                 <p class="text-sm font-semibold uppercase tracking-widest text-pink-500 my-4">
                     {{ props.title }}
                 </p>
+                <p class="my-4">{{ props.description }}</p>
 
                 <video :src="props.source" class="w-full h-full" controls></video>
             </div>
@@ -18,7 +19,8 @@
 interface PopupInterface {
     isShow: boolean,
     source?: string,
-    title?: string
+    title?: string,
+    description?: string
 }
 
 const emmit = defineEmits(['onClose'])

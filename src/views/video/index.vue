@@ -14,7 +14,8 @@
       </div>
       <NotFoundComponent v-show="videoData?.length == 0" />
     </section>
-    <PopupComponent :isShow="showVideo" @onClose="onClose" :title="sourceTitle" :source="sourceVideo" />
+    <PopupComponent :isShow="showVideo" @onClose="onClose" :title="sourceTitle" :description="sourceDescription"
+      :source="sourceVideo" />
     <ModalConfirmComponent :is-show="showModalConfirm" @on-ok="onOk" title="Hapus Data"
       body="Apakah kamu yakin ingin menghapus data ?" />
   </div>
@@ -42,6 +43,7 @@ const observer = ref(null)
 const showVideo = ref<boolean>(false)
 const sourceVideo = ref<string>('')
 const sourceTitle = ref<string>('')
+const sourceDescription = ref<string>('')
 const videoData = ref<VideoInterface[]>()
 const showModalConfirm = ref<boolean>(false)
 const idDelete = ref<string | null>(null)
@@ -77,6 +79,7 @@ const deleteData = async (id: string) => {
 const watchVideo = (row: any) => {
   sourceVideo.value = baseURL + '/' + row.source as string
   sourceTitle.value = row.title as string
+  sourceDescription.value = row.description as string
   showVideo.value = true
 }
 

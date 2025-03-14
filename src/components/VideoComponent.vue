@@ -10,9 +10,6 @@
       </div>
       <h1 class="text-slate-100 font-bold text-[18px] group-hover:text-[20px] transition-all duration-100">{{
         props.title }}</h1>
-      <span class="text-slate-200 text-[12px] tracking-[1px] group-hover:text-[14px]  transition-all duration-100">{{
-        props.description
-      }}</span>
     </div>
   </section>
 </template>
